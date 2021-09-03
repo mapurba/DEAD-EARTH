@@ -29,8 +29,9 @@ public class CharacterManager : MonoBehaviour
 	private int					_aiBodyPartLayer     = -1;
 	private int 				_interactiveMask	 = 0;
 
-	public float 			health{ get{ return _health;}} 
-	public float			stamina{ get{ return _fpsController!=null?_fpsController.stamina:0.0f;}}
+	public float 			health			{ get{ return _health;}} 
+	public float			stamina			{ get{ return _fpsController!=null?_fpsController.stamina:0.0f;}}
+	public FPSController	fpsController	{ get{ return _fpsController;}}
 
 	// Use this for initialization
 	void Start () 
@@ -212,4 +213,28 @@ public class CharacterManager : MonoBehaviour
 		if (_playerHUD) _playerHUD.Invalidate( this);
 	}
 
+	public void DoLevelComplete()
+	{
+		if (_fpsController) 
+			_fpsController.freezeMovement = true;
+
+		if (_playerHUD)
+		{
+			_playerHUD.Fade( 4.0f, ScreenFadeType.FadeOut );
+			_playerHUD.ShowMissionText( "Mission Completed");
+			_playerHUD.Invalidate(this);
+		}
+
+		Invoke( "GameOver", 4.0f);
+	}
+
+	void GameOver()
+	{
+		// Show the cursor again
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+
+		//if (ApplicationManager.instance)
+		//	ApplicationManager.instance.LoadMainMenu();
+	}
 }

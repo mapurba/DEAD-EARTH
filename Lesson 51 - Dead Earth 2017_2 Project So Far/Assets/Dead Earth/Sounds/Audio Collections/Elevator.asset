@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8131678a24b48a449ad376455e36237c, type: 3}
-  m_Name: Door Locked
+  m_Name: Elevator
   m_EditorClassIdentifier: 
   _audioGroup: Scene
-  _volume: 0.9
+  _volume: 0.7
   _spatialBlend: 1
   _priority: 150
   _audioClipBanks:
   - Clips:
-    - {fileID: 8300000, guid: b25b9488b53b5492a8517013e68dafa4, type: 3}
+    - {fileID: 8300000, guid: 322fd9413f2f03c4bbc89de8ca6462e3, type: 3}
