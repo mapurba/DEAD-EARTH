@@ -13,6 +13,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] private float				_runRadius			= 7.0f;
 	[SerializeField] private float				_landingRadius		= 12.0f;
 	[SerializeField] private float				_bloodRadiusScale	= 6.0f;
+	[SerializeField] private PlayerHUD			_playerHUD			= null;
 
 	// Pain Damage Audio
 	[SerializeField] private AudioCollection	_damageSounds		=	null;
@@ -26,6 +27,9 @@ public class CharacterManager : MonoBehaviour
 	private CharacterController _characterController = null;
 	private GameSceneManager	_gameSceneManager	 = null;
 	private int					_aiBodyPartLayer     = -1;
+
+	public float 			health{ get{ return _health;}} 
+	public float			stamina{ get{ return _fpsController!=null?_fpsController.stamina:0.0f;}}
 
 	// Use this for initialization
 	void Start () 
@@ -46,6 +50,9 @@ public class CharacterManager : MonoBehaviour
 
 			_gameSceneManager.RegisterPlayerInfo( _collider.GetInstanceID(), info );
 		}
+
+		// Start fading in
+		if (_playerHUD) _playerHUD.Fade( 2.0f, ScreenFadeType.FadeIn );
 	}
 	
 	public void TakeDamage ( float amount, bool doDamage, bool doPain )
@@ -137,6 +144,8 @@ public class CharacterManager : MonoBehaviour
 			_fpsController.dragMultiplierLimit = Mathf.Max(_health/100.0f, 0.25f);
 		}
 
+
+		if (_playerHUD) _playerHUD.Invalidate( this);
 	}
 
 
