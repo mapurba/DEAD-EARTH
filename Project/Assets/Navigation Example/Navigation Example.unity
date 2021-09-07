@@ -27908,7 +27908,7 @@ MonoBehaviour:
   _stateNotSetText: NOT USED
   _stateSetText: 'Power Generator : Not Running'
   _ObjectActiveText: 'Power Generator : Running'
-  _activationDelay: 4
+  _activationDelay: 1
   _deactivationDelay: 1
   _activationSounds: {fileID: 11400000, guid: fc656d9dcd7529344a3cc914fac910cb, type: 2}
   _audioSource: {fileID: 1079804105}
@@ -27920,9 +27920,30 @@ MonoBehaviour:
     - Type: 1
       Name: Activate
       Value: true
-  _materialControllers: []
-  _objectActivators: []
-  _objectDeactivators: []
+  _materialControllers:
+  - Material: {fileID: 2100000, guid: a56bc0581dfd548149aceec45ffc02a0, type: 2}
+    _diffuseTexture: {fileID: 0}
+    _diffuseColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalMap: {fileID: 0}
+    _normalStrength: 0
+    _emissiveTexture: {fileID: 0}
+    _emissionColor: {r: 0.19047546, g: 0.754717, b: 0.1737273, a: 0}
+    _emissionScale: 1.4
+  - Material: {fileID: 2100000, guid: fe5d4bd0953e3044dab441c6734208d3, type: 2}
+    _diffuseTexture: {fileID: 0}
+    _diffuseColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalMap: {fileID: 0}
+    _normalStrength: 0
+    _emissiveTexture: {fileID: 0}
+    _emissionColor: {r: 1, g: 1, b: 1, a: 0}
+    _emissionScale: 1.66
+  _objectActivators:
+  - {fileID: 988936995}
+  - {fileID: 1623510452}
+  - {fileID: 1798125150}
+  - {fileID: 1170788419}
+  _objectDeactivators:
+  - {fileID: 370820661}
 --- !u!1 &1142004993
 GameObject:
   m_ObjectHideFlags: 0
@@ -40799,9 +40820,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingGameStates:
   - Key: POWER
-    Value: TRUE
-  - Key: LOCKDOWN
     Value: FALSE
+  - Key: LOCKDOWN
+    Value: TRUE
   - Key: ACCESSCODE
     Value: TRUE
 --- !u!4 &1888719285
