@@ -23,6 +23,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] private float				_nextPainSoundTime	=	0.0f;
 	[SerializeField] private float				_painSoundOffset	=	0.35f;
 	[SerializeField] private float				_tantRadius	    =	10.0f;
+	[SerializeField] private float				_hitLength	    =	10.0f;
 
 	// Private
 	private Collider 			_collider 			 = null;
@@ -126,7 +127,7 @@ public class CharacterManager : MonoBehaviour
 
 		ray = _camera.ScreenPointToRay( new Vector3( Screen.width/2, Screen.height/2, 0 ));
 
-		isSomethingHit = Physics.Raycast( ray, out hit, 2.0f, 1<<_aiBodyPartLayer );
+		isSomethingHit = Physics.Raycast( ray, out hit, _hitLength, 1<<_aiBodyPartLayer );
 
 		if (isSomethingHit)
 		{
