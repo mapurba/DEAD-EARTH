@@ -109,7 +109,7 @@ public class CharacterManager : MonoBehaviour
 			}
 		}
 
-        if (_health == 0)
+        if (_health <= 0)
             PlayerDied();
 
     }
@@ -268,12 +268,12 @@ public class CharacterManager : MonoBehaviour
 
         if (_playerHUD)
         {
-            _playerHUD.Fade(4.0f, ScreenFadeType.FadeOut);
+            _playerHUD.Fade(2.0f, ScreenFadeType.FadeOut);
             _playerHUD.ShowMissionText("You are in haven now Don't worry !");
             _playerHUD.Invalidate(this);
         }
 
-        Invoke("GameOver", 4.0f);
+        Invoke("GameOver", 3.0f);
     }
 
 	void GameOver()
