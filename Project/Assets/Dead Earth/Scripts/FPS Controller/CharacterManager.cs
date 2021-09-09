@@ -28,6 +28,7 @@ public class CharacterManager : MonoBehaviour
 	private GameSceneManager	_gameSceneManager	 = null;
 	private int					_aiBodyPartLayer     = -1;
 	private int 				_interactiveMask	 = 0;
+    private float               _nextAttackTime      = 0.0f;
 
 	public float 			health			{ get{ return _health;}} 
 	public float			stamina			{ get{ return _fpsController!=null?_fpsController.stamina:0.0f;}}
@@ -117,7 +118,7 @@ public class CharacterManager : MonoBehaviour
 
 		ray = _camera.ScreenPointToRay( new Vector3( Screen.width/2, Screen.height/2, 0 ));
 
-		isSomethingHit = Physics.Raycast( ray, out hit, 1000.0f, 1<<_aiBodyPartLayer );
+		isSomethingHit = Physics.Raycast( ray, out hit, 2.0f, 1<<_aiBodyPartLayer );
 
 		if (isSomethingHit)
 		{
@@ -125,6 +126,7 @@ public class CharacterManager : MonoBehaviour
 			if (stateMachine)
 			{
 				stateMachine.TakeDamage( hit.point, ray.direction * 1.0f, 50, hit.rigidbody, this, 0 );
+                _nextAttackTime = Time.time + 0.5f;
 			}
 		}
 
@@ -189,7 +191,7 @@ public class CharacterManager : MonoBehaviour
 		}
 
 		// Are we attacking?
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && Time.time > _nextAttackTime)
 		{
 			DoDamage();
 		}
