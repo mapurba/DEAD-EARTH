@@ -35,6 +35,7 @@ public class GameSceneManager : MonoBehaviour
 	private Dictionary< int, AIStateMachine>		_stateMachines	=	new Dictionary<int, AIStateMachine>();
 	private Dictionary< int, PlayerInfo >			_playerInfos	=	new Dictionary<int, PlayerInfo>();
 	private Dictionary< int, InteractiveItem>		_interactiveItems	=	new Dictionary<int, InteractiveItem>();
+	private Dictionary< int, MaterialController>	_materialControllers=	new Dictionary<int, MaterialController>();
 
 	// Properties
 	public ParticleSystem	bloodParticles{ get{ return _bloodParticles;}}
@@ -124,4 +125,19 @@ public class GameSceneManager : MonoBehaviour
 		return item;
 	}
 
+	public void RegisterMaterialController( int key, MaterialController controller )
+	{
+		if (!_materialControllers.ContainsKey( key ))
+		{
+			_materialControllers[key] = controller;
+		}
+	}
+
+	protected void OnDestroy()
+	{
+		foreach( KeyValuePair<int, MaterialController> controller in _materialControllers)
+		{
+			controller.Value.OnReset();
+		}
+	}
 }

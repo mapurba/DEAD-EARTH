@@ -359,7 +359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4481894346976096
 Transform:
   m_ObjectHideFlags: 0
@@ -2096,8 +2096,7 @@ MonoBehaviour:
   _screamChance: 0.078
   _screamRadius: 30
   _screamPosition: 1
-  _screamPrefab: {fileID: 114030182560010146, guid: ec8fc37fea0796a43a54ae03394182fc,
-    type: 3}
+  _screamPrefab: {fileID: 114030182560010146, guid: ec8fc37fea0796a43a54ae03394182fc, type: 3}
   _replenishRate: 2
   _depletionRate: 0.1
   _reanimationBlendTime: 1.5
@@ -2214,8 +2213,7 @@ AudioSource:
   m_GameObject: {fileID: 1525110076471372}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243030288428196280, guid: b7a5031f76d49f741a192b12c5b37578,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 243030288428196280, guid: b7a5031f76d49f741a192b12c5b37578, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

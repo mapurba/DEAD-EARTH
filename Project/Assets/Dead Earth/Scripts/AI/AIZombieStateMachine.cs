@@ -42,6 +42,7 @@ public class AIZombieStateMachine : AIStateMachine
 	[SerializeField]	[Range(0.0f, 50.0f)]	float				_screamRadius	= 20.0f;
 	[SerializeField]							AIScreamPosition 	_screamPosition	= AIScreamPosition.Entity;			
 	[SerializeField]							AISoundEmitter		_screamPrefab	= null;
+    [SerializeField]                            AudioCollection     _ragdollCollection = null;
 	[SerializeField]							float 		_replenishRate		= 0.5f;
 	[SerializeField]							float 		_depletionRate		= 0.1f;
 	[SerializeField] 							float 		_reanimationBlendTime = 1.5f;
@@ -56,6 +57,7 @@ public class AIZombieStateMachine : AIStateMachine
 	private int		_attackType	= 0;
 	private float	_speed		= 0.0f;
 	private float	_isScreaming= 0.0f;
+    private float _nextRagdollSoundTime = 0.0f;
 
 	// Ragdoll Stuff
 	private AIBoneControlType			 _boneControlType  		= AIBoneControlType.Animated;
@@ -236,11 +238,32 @@ public class AIZombieStateMachine : AIStateMachine
 		}
 
 		float hitStrength = force.magnitude;
+        int prevHealth = _health;
 
-		if (_boneControlType==AIBoneControlType.Ragdoll)
+
+        if (_boneControlType==AIBoneControlType.Ragdoll)
 		{
 			if (bodyPart!=null)
 			{
+                //play ragdoll sound 
+
+                if(Time.time > _nextRagdollSoundTime && _ragdollCollection !=null && _health > 0)
+                {
+                    AudioClip clip = _ragdollCollection[1];
+                    if (clip)
+                    {
+                        _nextRagdollSoundTime = Time.time + clip.length;
+                        AudioManager.instance.PlayOneShotSound(
+                            _ragdollCollection.audioGroup,
+                            clip,
+                            position,
+                            _ragdollCollection.volume,
+                            _ragdollCollection.spatialBlend,
+                            _ragdollCollection.priority
+                            );
+                    }
+                }
+
 				if (hitStrength>1.0f)
 					bodyPart.AddForce( force, ForceMode.Impulse );
 
@@ -353,8 +376,26 @@ public class AIZombieStateMachine : AIStateMachine
 			if (_animator) _animator.enabled = false;
 			if (_collider) _collider.enabled = false;
 
-			// Mute Audio While Ragdoll is happening
-			if (_layeredAudioSource!=null) 
+            // Mute Audio While Ragdoll is happening
+
+            if (Time.time > _nextRagdollSoundTime && _ragdollCollection != null && prevHealth > 0)
+            {
+                AudioClip clip = _ragdollCollection[0];
+                if (clip)
+                {
+                    _nextRagdollSoundTime = Time.time + clip.length;
+                    AudioManager.instance.PlayOneShotSound(
+                        _ragdollCollection.audioGroup,
+                        clip,
+                        position,
+                        _ragdollCollection.volume,
+                        _ragdollCollection.spatialBlend,
+                        _ragdollCollection.priority
+                        );
+                }
+            }
+
+            if (_layeredAudioSource!=null) 
 				_layeredAudioSource.Mute(true);
 
 			inMeleeRange = false;
