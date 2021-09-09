@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GameState
@@ -39,19 +41,24 @@ public class ApplicationManager : MonoBehaviour
 		// This object must live for the entire application
 		DontDestroyOnLoad(gameObject);
 
-		// Copy starting game states into game state dictionary
-		for (int i = 0; i < _startingGameStates.Count; i++)
-		{
-			GameState gs = _startingGameStates[i];
-			_gameStateDictionary[gs.Key] = gs.Value;
-		}
+        ResetGameState();
 	}
 
-	// ----------------------------------------------------------------------------------------------
-	// Name	:	GetGameState
-	// Desc	:	Returns the value of a game state
-	// ----------------------------------------------------------------------------------------------
-	public string GetGameState(string key)
+    private void ResetGameState()
+    {
+        // Copy starting game states into game state dictionary
+        for (int i = 0; i < _startingGameStates.Count; i++)
+        {
+            GameState gs = _startingGameStates[i];
+            _gameStateDictionary[gs.Key] = gs.Value;
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // Name	:	GetGameState
+    // Desc	:	Returns the value of a game state
+    // ----------------------------------------------------------------------------------------------
+    public string GetGameState(string key)
 	{
 		string result = null;
 		_gameStateDictionary.TryGetValue(key, out result);
@@ -71,5 +78,26 @@ public class ApplicationManager : MonoBehaviour
 
 		return true;
 	}
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
+    public void LoadGame()
+    {
+        ResetGameState(); 
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
+
+    }
 
 }

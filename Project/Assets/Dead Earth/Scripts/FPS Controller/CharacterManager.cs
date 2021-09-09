@@ -108,7 +108,11 @@ public class CharacterManager : MonoBehaviour
 				}
 			}
 		}
-	}
+
+        if (_health == 0)
+            PlayerDied();
+
+    }
 
 	public void DoDamage( int hitDirection = 0 )
 	{
@@ -257,13 +261,28 @@ public class CharacterManager : MonoBehaviour
 		Invoke( "GameOver", 4.0f);
 	}
 
+    public void PlayerDied()
+    {
+        if (_fpsController)
+            _fpsController.freezeMovement = true;
+
+        if (_playerHUD)
+        {
+            _playerHUD.Fade(4.0f, ScreenFadeType.FadeOut);
+            _playerHUD.ShowMissionText("You are in haven now Don't worry !");
+            _playerHUD.Invalidate(this);
+        }
+
+        Invoke("GameOver", 4.0f);
+    }
+
 	void GameOver()
 	{
 		// Show the cursor again
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
 
-		//if (ApplicationManager.instance)
-		//	ApplicationManager.instance.LoadMainMenu();
+		if (ApplicationManager.instance)
+			ApplicationManager.instance.LoadMainMenu();
 	}
 }
