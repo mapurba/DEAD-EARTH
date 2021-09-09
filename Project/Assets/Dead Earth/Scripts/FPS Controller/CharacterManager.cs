@@ -200,10 +200,6 @@ public class CharacterManager : MonoBehaviour
 			DoDamage();
 		}
 
-        if(Input.GetMouseButtonDown(1) && Time.time > _nextTauntTime)
-        {
-            DoTaunt();
-        }
 
 		// Calculate the SoundEmitter radius and the Drag Multiplier Limit
 		if (_fpsController && _soundEmitter!=null)
@@ -220,8 +216,13 @@ public class CharacterManager : MonoBehaviour
 			_fpsController.dragMultiplierLimit = Mathf.Max(_health/100.0f, 0.25f);
 		}
 
-		// Update the Helath and Stamina on the Player HUD
-		if (_playerHUD) _playerHUD.Invalidate( this);
+        if (Input.GetMouseButtonDown(1) && Time.time > _nextTauntTime)
+        {
+            DoTaunt();
+        }
+
+        // Update the Helath and Stamina on the Player HUD
+        if (_playerHUD) _playerHUD.Invalidate( this);
 	}
 
     private void DoTaunt()
@@ -235,7 +236,7 @@ public class CharacterManager : MonoBehaviour
             _tauntingSounds.volume,
             _tauntingSounds.spatialBlend,
             _tauntingSounds.priority
-            );
+            );  
         if (_soundEmitter != null)
             _soundEmitter.SetRadius(_tantRadius);
         _nextTauntTime = Time.time + taunt.length;
