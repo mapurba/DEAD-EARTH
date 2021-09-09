@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CharacterManager : MonoBehaviour 
 {
@@ -18,8 +19,10 @@ public class CharacterManager : MonoBehaviour
 	// Pain Damage Audio
 	[SerializeField] private AudioCollection	_damageSounds		=	null;
 	[SerializeField] private AudioCollection	_painSounds			=	null;
+	[SerializeField] private AudioCollection	_tauntingSounds		=	null;
 	[SerializeField] private float				_nextPainSoundTime	=	0.0f;
 	[SerializeField] private float				_painSoundOffset	=	0.35f;
+	[SerializeField] private float				_tantRadius	    =	10.0f;
 
 	// Private
 	private Collider 			_collider 			 = null;
@@ -29,6 +32,7 @@ public class CharacterManager : MonoBehaviour
 	private int					_aiBodyPartLayer     = -1;
 	private int 				_interactiveMask	 = 0;
     private float               _nextAttackTime      = 0.0f;
+    private float               _nextTauntTime       = 0.0f;
 
 	public float 			health			{ get{ return _health;}} 
 	public float			stamina			{ get{ return _fpsController!=null?_fpsController.stamina:0.0f;}}
@@ -196,6 +200,11 @@ public class CharacterManager : MonoBehaviour
 			DoDamage();
 		}
 
+        if(Input.GetMouseButtonDown(1) && Time.time > _nextTauntTime)
+        {
+            DoTaunt();
+        }
+
 		// Calculate the SoundEmitter radius and the Drag Multiplier Limit
 		if (_fpsController && _soundEmitter!=null)
 		{
@@ -215,7 +224,24 @@ public class CharacterManager : MonoBehaviour
 		if (_playerHUD) _playerHUD.Invalidate( this);
 	}
 
-	public void DoLevelComplete()
+    private void DoTaunt()
+    {
+        if (_tauntingSounds == null) return;
+        AudioClip taunt = _tauntingSounds[0];
+        AudioManager.instance.PlayOneShotSound(
+            _tauntingSounds.audioGroup,
+            taunt,
+            transform.position,
+            _tauntingSounds.volume,
+            _tauntingSounds.spatialBlend,
+            _tauntingSounds.priority
+            );
+        if (_soundEmitter != null)
+            _soundEmitter.SetRadius(_tantRadius);
+        _nextTauntTime = Time.time + taunt.length;
+    }
+
+    public void DoLevelComplete()
 	{
 		if (_fpsController) 
 			_fpsController.freezeMovement = true;

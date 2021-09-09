@@ -18440,7 +18440,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1637812957429236, guid: 9efab3d6af5b99c4ea2dad4d788e1310, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4413688948296614, guid: 9efab3d6af5b99c4ea2dad4d788e1310, type: 3}
       propertyPath: m_RootOrder
@@ -32497,7 +32497,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1222732105380402, guid: 2d41bd57b0c9a5c468678c852025523a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4465112876342930, guid: 2d41bd57b0c9a5c468678c852025523a, type: 3}
       propertyPath: m_RootOrder
@@ -36209,7 +36209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1100555768496794, guid: 71c4e3d6764131b45a3f4b7aeff86f97, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4493396923144050, guid: 71c4e3d6764131b45a3f4b7aeff86f97, type: 3}
       propertyPath: m_RootOrder
@@ -37226,7 +37226,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 66ed2214d625d9e4bb6d6477bf9fc9d9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 0.32
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -43805,8 +43805,10 @@ MonoBehaviour:
   _playerHUD: {fileID: 762470267}
   _damageSounds: {fileID: 11400000, guid: 43469f6cb3d5e744fb7c6611b32769b3, type: 2}
   _painSounds: {fileID: 11400000, guid: 879a98bba5df86a43adcd57d6fff94f7, type: 2}
+  _tauntingSounds: {fileID: 11400000, guid: 46eadaba7d224784da960b31263131a3, type: 2}
   _nextPainSoundTime: 0
   _painSoundOffset: 0.35
+  _tantRadius: 10
 --- !u!54 &1954485742
 Rigidbody:
   m_ObjectHideFlags: 0
