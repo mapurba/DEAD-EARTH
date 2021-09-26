@@ -13,12 +13,12 @@ using UnityEngine;
 public class NPCStickyDetector : MonoBehaviour 
 {
 
-	FPSController _controller = null;
+	FPSControllers _controller = null;
 
 	// Use this for initialization
 	void Start () 
 	{
-		_controller = GetComponentInParent<FPSController>();	
+		_controller = GetComponentInParent<FPSControllers>();	
 	}
 
 	void OnTriggerStay( Collider col )

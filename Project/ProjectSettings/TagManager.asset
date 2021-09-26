@@ -12,6 +12,15 @@ TagManager:
   - Upper Body
   - Lower Body
   - Head
+  - Item
+  - Crosshair
+  - CinemachineTarget
+  - LootBox
+  - Flesh
+  - Concrete
+  - Wood
+  - Dirt
+  - Metal
   layers:
   - Default
   - TransparentFX

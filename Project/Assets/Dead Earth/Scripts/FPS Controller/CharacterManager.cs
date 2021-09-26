@@ -27,7 +27,7 @@ public class CharacterManager : MonoBehaviour
 
 	// Private
 	private Collider 			_collider 			 = null;
-	private FPSController		_fpsController 		 = null;
+	private FPSControllers		_fpsController 		 = null;
 	private CharacterController _characterController = null;
 	private GameSceneManager	_gameSceneManager	 = null;
 	private int					_aiBodyPartLayer     = -1;
@@ -37,13 +37,13 @@ public class CharacterManager : MonoBehaviour
 
 	public float 			health			{ get{ return _health;}} 
 	public float			stamina			{ get{ return _fpsController!=null?_fpsController.stamina:0.0f;}}
-	public FPSController	fpsController	{ get{ return _fpsController;}}
+	public FPSControllers	fpsController	{ get{ return _fpsController;}}
 
 	// Use this for initialization
 	void Start () 
 	{
 		_collider 			= GetComponent<Collider>();
-		_fpsController 		= GetComponent<FPSController>();
+		_fpsController 		= GetComponent<FPSControllers>();
 		_characterController= GetComponent<CharacterController>();
 		_gameSceneManager 	= GameSceneManager.instance;
 		_aiBodyPartLayer 	= LayerMask.NameToLayer("AI Body Part");
@@ -287,3 +287,5 @@ public class CharacterManager : MonoBehaviour
 			ApplicationManager.instance.LoadMainMenu();
 	}
 }
+
+
