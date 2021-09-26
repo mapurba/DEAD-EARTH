@@ -21,6 +21,7 @@ TagManager:
   - Wood
   - Dirt
   - Metal
+  - Target
   layers:
   - Default
   - TransparentFX

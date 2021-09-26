@@ -41,6 +41,9 @@ namespace DarkTreeFPS
         
         //Grenade active prefab
         public GameObject grenadePrefab;
+        private GameSceneManager _gameSceneManager = null;
+        private CharacterManager _characterManager = null;
+
 
         #region Utility variables
 
@@ -221,6 +224,8 @@ namespace DarkTreeFPS
         
         private void Start()
         {
+            _gameSceneManager = GameSceneManager.instance;
+            _characterManager = FindObjectOfType<CharacterManager>();
             GetWeaponSettings();
 
             if (weaponType != WeaponType.Melee && weaponType != WeaponType.Grenade && weaponType != WeaponType.RocketLauncher)
@@ -578,6 +583,10 @@ namespace DarkTreeFPS
             RicochetSFX();
             //Set tag and transform of hit to HitParticlesFXManager
             HitParticlesFXManager(hit);
+            Ray ray;
+           
+            ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
 
             //Decrease health of object by calculatedDamage
             if (hit.collider.GetComponent<ObjectHealth>())
@@ -599,8 +608,17 @@ namespace DarkTreeFPS
             {
                 hit.rigidbody.isKinematic = false;
                 hit.rigidbody.AddForceAtPosition(rigidbodyHitForce * mainCamera.transform.forward, hit.point);
+                AIStateMachine stateMachine = _gameSceneManager.GetAIStateMachine(hit.rigidbody.GetInstanceID());
+                if (stateMachine)
+                {
+                    stateMachine.TakeDamage(hit.point, ray.direction * 1.0f, 50, hit.rigidbody, _characterManager, 0);
+                    //Debug.Log("zombie");
+                }
+
             }
 
+
+           
 
             if (hit.collider.GetComponent<PlayerHitTarget>())
                 hit.collider.GetComponent<PlayerHitTarget>().npc.GetHit(calculatedDamage, transform);
